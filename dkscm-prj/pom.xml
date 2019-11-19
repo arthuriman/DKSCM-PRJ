@@ -9,5 +9,6 @@
     <module>dkscm-commons</module>
     <module>dkscm-server</module>
     <module>dkscm</module>
+    <module>dkscm-shiro</module>
   </modules>
 </project>
