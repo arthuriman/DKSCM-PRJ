@@ -1,14 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>cn.ekgc.dkscm</groupId>
-  <artifactId>dkscm-prj</artifactId>
-  <version>2.0.0</version>
-  <packaging>pom</packaging>
-  <modules>
-    <module>dkscm-commons</module>
-    <module>dkscm-server</module>
-    <module>dkscm</module>
-    <module>dkscm-shiro</module>
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+								http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>cn.ekgc.dkscm</groupId>
+  	<artifactId>dkscm-prj</artifactId>
+  	<version>2.0.0</version>
+  	<packaging>pom</packaging>
+  	
+  	<modules>
+  		<!-- 项目公共子模块，包含实体类、视图对象和工具类 [BEGIN] -->
+    	<module>dkscm-commons</module>
+    	<!-- 项目公共子模块，包含实体类、视图对象和工具类 [END] -->
+    	
+    	<!-- 项目业务子模块，包含数据持久层和业务层 [BEGIN] -->
+    	<module>dkscm-server</module>
+    	<!-- 项目业务子模块，包含数据持久层和业务层 [END] -->
+    	
+    	<!-- 项目控制模块，包含控制层 [BEGIN] -->
+    	<module>dkscm</module>
+    	<!-- 项目控制模块，包含控制层 [END] -->
+    	
+    	<!-- 项目Shiro模块，包含Shiro认证功能 [BEGIN] -->
+    	<module>dkscm-shiro</module>
+    	<!-- 项目Shiro模块，包含Shiro认证功能 [END] -->
+  	</modules>
+  	
+  	<!-- 增加整个项目所用到的所有依赖部分的版本号信息 [BEGIN] -->
+  	<properties>
+  		<spring.version>5.1.11.RELEASE</spring.version>
+    	<mysql-connector-java.version>8.0.18</mysql-connector-java.version>
+    	<mybatis.version>3.5.3</mybatis.version>
+    	<mybatis-spring.version>2.0.3</mybatis-spring.version>
+    	<druid.version>1.1.21</druid.version>
+    	<jackson-databind.version>2.10.1</jackson-databind.version>
+    	<shiro-spring.version>1.4.1</shiro-spring.version>
+  	</properties>
+  	<!-- 增加整个项目所用到的所有依赖部分的版本号信息 [END] -->
+  	
+  	<!-- 添加整个项目所使用的所有的依赖关系 [BEGIN] -->
+  	<dependencies>
+  		<!-- 添加Spring MVC依赖关系 [BEGIN] -->
+  		<dependency>
+  			<groupId>org.springframework</groupId>
+  			<artifactId>spring-webmvc</artifactId>
+  			<version>${spring.version}</version>
+  		</dependency>
+  		<!-- 添加Spring MVC依赖关系 [END] -->
+  		
+  		<!-- 添加Spring JDBC依赖关系 [BEGIN] -->
+  		<dependency>
+  			<groupId>org.springframework</groupId>
+  			<artifactId>spring-jdbc</artifactId>
+  			<version>${spring.version}</version>
+  		</dependency>
+  		<!-- 添加Spring JDBC依赖关系 [END] -->
+  		
+  		<!-- 添加MySQL连接驱动依赖关系 [BEGIN] -->
+  		<dependency>
+  			<groupId>mysql</groupId>
+  			<artifactId>mysql-connector-java</artifactId>
+  			<version>${mysql-connector-java.version}</version>
+  		</dependency>
+  		<!-- 添加MySQL连接驱动依赖关系 [END] -->
+  		
+  		<!-- 添加Mybatis以及Mybatis和Spring结合的依赖关系 [BEGIN] -->
+  		<dependency>
+  			<groupId>org.mybatis</groupId>
+  			<artifactId>mybatis</artifactId>
+  			<version>${mybatis.version}</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.mybatis</groupId>
+  			<artifactId>mybatis-spring</artifactId>
+  			<version>${mybatis-spring.version}</version>
+  		</dependency>
+  		<!-- 添加Mybatis以及Mybatis和Spring结合的依赖关系 [END] -->
+  		
+  		<!-- 添加Druid数据库连接池依赖关系 [BEGIN] -->
+  		<dependency>
+  			<groupId>com.alibaba</groupId>
+  			<artifactId>druid</artifactId>
+  			<version>${druid.version}</version>
+  		</dependency>
+  		<!-- 添加Druid数据库连接池依赖关系 [END] -->
+  		
+  		<!-- 添加Spring MVC对于响应JSON的支持依赖关系 [BEGIN] -->
+  		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>${jackson-databind.version}</version>
+		</dependency>
+  		<!-- 添加Spring MVC对于响应JSON的支持依赖关系 [END] -->
+  		
+  		<!-- 添加Shiro和Spring结合的依赖关系 [BEGIN] -->
+  		<dependency>
+		    <groupId>org.apache.shiro</groupId>
+		    <artifactId>shiro-spring</artifactId>
+		    <version>${shiro-spring.version}</version>
+		</dependency>
+  		<!-- 添加Shiro和Spring结合的依赖关系 [END] -->
+  		
+  		<!-- 添加JSTL的依赖关系 [BEGIN] -->
+  		<dependency>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+  		<!-- 添加JSTL的依赖关系 [END] -->
+  		
+  		<!-- 添加Servlet和JSP的依赖关系 [BEGIN] -->
+  		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>javax.servlet.jsp-api</artifactId>
+		    <version>2.3.3</version>
+		    <scope>provided</scope>
+		</dependency>
+  		<!-- 添加Servlet和JSP的依赖关系 [END] -->
+  	</dependencies>
+  	<!-- 添加整个项目所使用的所有的依赖关系 [END] -->
 </project>

@@ -20,6 +20,22 @@
   	</properties>
 
   	<dependencies>
+  		<!-- 添加dkscm-service子模块依赖关系 [BEGIN] -->
+  		<dependency>
+  			<groupId>cn.ekgc.dkscm</groupId>
+  			<artifactId>dkscm-server</artifactId>
+  			<version>${parent.version}</version>
+  		</dependency>
+  		<!-- 添加dkscm-service子模块依赖关系 [END] -->
+  		
+  		<!-- 添加dkscm-shiro子模块依赖关系 [BEGIN] -->
+  		<dependency>
+  			<groupId>cn.ekgc.dkscm</groupId>
+  			<artifactId>dkscm-shiro</artifactId>
+  			<version>${parent.version}</version>
+  		</dependency>
+  		<!-- 添加dkscm-shiro子模块依赖关系 [END] -->
+  	
     	<dependency>
       		<groupId>junit</groupId>
       		<artifactId>junit</artifactId>
