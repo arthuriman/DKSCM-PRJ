@@ -14,6 +14,7 @@ public class Purchase implements Serializable {
 	private Long purchaseId;
 	private String purchaseNo;
 	private String goodsName;
+	private String goodsBand;
 	private String goodsType;
 	private Double applyquantity;
 	private String goodsUnit;
@@ -40,7 +41,7 @@ public class Purchase implements Serializable {
 	private User receiver;
 	private String receiveRemark;
 	private Date receiveTime;
-	private String statusCode;
+	private Status status;
 	private Date createTime;
 	
 	public Long getPurchaseId() {
@@ -60,6 +61,12 @@ public class Purchase implements Serializable {
 	}
 	public void setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
+	}
+	public String getGoodsBand() {
+		return goodsBand;
+	}
+	public void setGoodsBand(String goodsBand) {
+		this.goodsBand = goodsBand;
 	}
 	public String getGoodsType() {
 		return goodsType;
@@ -217,11 +224,11 @@ public class Purchase implements Serializable {
 	public void setReceiveTime(Date receiveTime) {
 		this.receiveTime = receiveTime;
 	}
-	public String getStatusCode() {
-		return statusCode;
+	public Status getStatus() {
+		return status;
 	}
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	public Date getCreateTime() {
 		return createTime;

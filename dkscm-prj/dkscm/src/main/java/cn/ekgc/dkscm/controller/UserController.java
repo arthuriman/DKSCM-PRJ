@@ -25,4 +25,15 @@ public class UserController extends BaseController {
 	public String forwardUserLoginForm() throws Exception {
 		return "user/user_login";
 	}
+	
+	/**
+	 * <b>登录错误，系统重定向到退出</b>
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String loginError() throws Exception {
+		// 登录错误，系统重定向
+		return "redirect:logout";
+	}
 }
