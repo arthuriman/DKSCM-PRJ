@@ -17,7 +17,8 @@
 			applicant.username applicant_name,
 			sp.apply_time,
 			ss.status_id,
-			ss.status_code
+			ss.status_code,
+			ss.status_text
 		FROM
 			sys_purchase sp JOIN sys_user applicant ON sp.applicant_id=applicant.user_id
 			LEFT JOIN sys_user reviewer ON sp.reviewer_id=reviewer.user_id
@@ -34,16 +35,44 @@
 		<if test="begin != null">LIMIT #{begin}, #{size}</if>
 	</select>
 	
+	<insert id="savePurchase" parameterType="Purchase">
+		insert into sys_purchase(
+			purchase_no, goods_name, goods_band, goods_type, 
+			apply_quantity, goods_unit, budget, 
+			<if test="applyRemark != null">apply_remark,</if> 
+			applicant_id, apply_time, status_code
+		) values(
+			#{purchaseNo}, #{goodsName}, #{goodsBand}, #{goodsType},
+			#{applyQuantity}, #{goodsUnit}, #{budget},
+			<if test="applyRemark != null">#{applyRemark},</if>
+			#{applicant.userId}, #{applyTime}, #{status.statusCode}
+		)
+	</insert>
+	
+	<update id="updatePurchase" parameterType="Purchase">
+		update 
+			sys_purchase 
+		set
+			<trim suffixOverrides=",">
+				<if test="reviewRemark != null">review_remark=#{reviewRemark},</if>
+				<if test="reviewer != null">reviewer_id=#{reviewer.userId},</if>
+				<if test="reviewTime != null">review_time=#{reviewTime},</if>
+				<if test="status != null">status_code=#{status.statusCode}</if>
+			</trim>
+		where
+			purchase_id=#{purchaseId}
+	</update>
+	
 	<resultMap type="Purchase" id="purchaseMap">
-		<id property="purchaseId" javaType="java.lang.Long" column="purchaser_id"/>
+		<id property="purchaseId" javaType="java.lang.Long" column="purchase_id"/>
 		<result property="purchaseNo" javaType="java.lang.String" column="purchase_no"/>
 		<result property="goodsName" javaType="java.lang.String" column="goods_name"/>
 		<result property="goodsBand" javaType="java.lang.String" column="goods_band"/>
 		<result property="goodsType" javaType="java.lang.String" column="goods_type"/>
 		<result property="applyQuantity" javaType="java.lang.Double" column="apply_quantity"/>
-		<result property="applyUnit" javaType="java.lang.String" column="goods_unit"/>
+		<result property="goodsUnit" javaType="java.lang.String" column="goods_unit"/>
 		<result property="budget" javaType="java.lang.Double" column="budget"/>
-		<result property="applyRemark" javaType="java.lang.Double" column="apply_remark"/>
+		<result property="applyRemark" javaType="java.lang.String" column="apply_remark"/>
 		<result property="applyTime" javaType="java.util.Date" column="apply_time"/>
 		<association property="applicant" javaType="User">
 			<id property="userId" javaType="java.lang.Long" column="applicant_id"/>
@@ -52,6 +81,7 @@
 		<association property="status" javaType="Status">
 			<id property="statusId" javaType="java.lang.Long" column="status_id"/>
 			<result property="statusCode" javaType="java.lang.String" column="status_code"/>
+			<result property="statusText" javaType="java.lang.String" column="status_text"/>
 		</association>
 	</resultMap>
 </mapper>

@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -115,12 +114,7 @@
 							if (userId == row.applicant.userId) {
 								applyBackBtn = "<a href='#' class='btn btn-danger btn-xs'><i class='fa fa-times'></i>撤回申请</a>";
 							}
-							var reviewBtn = "";
-							var roleId = ${sessionScope.user.role.roleId};
-							if (roleId == 1 || roleId == 3) {
-								reviewBtn = "<a href='javascript:reviewPurchase(" + row.purchaseId + ");' class='btn btn-success btn-xs'><i class=''></i>采购审批</a>&nbsp;";
-							}
-							return detailBtn + "&nbsp;" + applyBackBtn + "&nbsp;" + reviewBtn;
+							return detailBtn + "&nbsp;" + applyBackBtn;
 						}
 					}],
 					// 显示语言
@@ -160,37 +154,16 @@
 				// 对于子页面要想获得父页面，JavaScript提供了另外一个对象parent
 				parent.showModal(url, width, height, titleHTML);
 			}
-			
-			function reviewPurchase(purchaseId) {
-				var url = "purchase/review/" + purchaseId;
-				var width = "800px";
-				var height = "600px";
-				var titleHTML = "<i class='fa fa-hand-stop-o'></i>&nbsp;申请物资采购";
-				// 对于子页面要想获得父页面，JavaScript提供了另外一个对象parent
-				parent.showModal(url, width, height, titleHTML);
-			}
 		</script>
 	</head>
 	<body>
 		<div class="container" style="margin: 0px;">
 			<div class="row" style="padding-top: 10px;">
 				<div class="col-md-12">
-					<c:choose>
-						<c:when test="${sessionScope.user.role.roleId == 1 }">
-							<a href="javascript:openPurchaseApply();" class="btn btn-success">
-								<i class="fa fa-plus"></i>
-								申请采购
-							</a>
-						</c:when>
-						<c:when test="${sessionScope.user.role.roleId == 2 }">
-							<a href="javascript:openPurchaseApply();" class="btn btn-success">
-								<i class="fa fa-plus"></i>
-								申请采购
-							</a>
-						</c:when>
-						<c:otherwise></c:otherwise>
-					</c:choose>
-					
+					<a href="javascript:openPurchaseApply();" class="btn btn-success">
+						<i class="fa fa-plus"></i>
+						申请采购
+					</a>
 				</div>
 			</div>
 			<div class="row" style="padding-top: 10px;">
@@ -203,6 +176,7 @@
 								<th>物资名称</th>
 								<th>数量</th>
 								<th>预算</th>
+								<th>审批意见</th>
 								<th>状态</th>
 								<th>操作</th>
 							</tr>

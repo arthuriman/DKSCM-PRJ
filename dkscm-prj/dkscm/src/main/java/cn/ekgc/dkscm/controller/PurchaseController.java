@@ -1,8 +1,11 @@
 package cn.ekgc.dkscm.controller;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.ekgc.dkscm.controller.base.BaseController;
 import cn.ekgc.dkscm.pojo.entity.Purchase;
+import cn.ekgc.dkscm.pojo.entity.Status;
+import cn.ekgc.dkscm.pojo.entity.User;
 import cn.ekgc.dkscm.pojo.vo.Page;
 import cn.ekgc.dkscm.service.PurchaseService;
 import cn.ekgc.dkscm.util.ConstantUtil;
@@ -97,5 +102,65 @@ public class PurchaseController extends BaseController {
 	public String forwardPurchaseApplyPage() throws Exception {
 		// 因为在加载申请页面的时候，是不需要相应的数据，直接转发即可
 		return "purchase/purchase_apply";
+	}
+	
+	/**
+	 * <b>提出采购申请</b>
+	 * @param purchase
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/apply", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean savePurchaseApply(Purchase purchase) throws Exception {
+		// 获得当前登录用户，作为申请人信息
+		User user = (User) session.getAttribute("user");
+		// 对于校验来说，前端校验有可能失效，因此无论有无前端校验，都必须有后端校验
+		// 校验通过后，使用业务层进行保存
+		return purchaseService.savePurchase(purchase, user);
+	}
+	
+	/**
+	 * <b>加载审批界面</b>
+	 * @param purchaseId
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/review/{purchaseId}", method = RequestMethod.GET)
+	public String forwardReviewPage(@PathVariable("purchaseId")Long purchaseId, ModelMap map) 
+			throws Exception {
+		// 在打开审批页面的时候，同时也需要传递此时采购的id
+		map.put("purchaseId", purchaseId);
+		return "purchase/purchase_review";
+	}
+	
+	/**
+	 * <b>进行申请审批</b>
+	 * @param purchaseId
+	 * @param reviewRemark
+	 * @param statusCode
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/review/{purchaseId}", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean reviewPurchase(@PathVariable("purchaseId")Long purchaseId, String reviewRemark, String statusCode) 
+			throws Exception {
+		// 通过状态编码封装状态对象
+		Status status = new Status();
+		status.setStatusCode(statusCode);
+		// 创建Purchase对象
+		Purchase purchase = new Purchase();
+		purchase.setPurchaseId(purchaseId);
+		purchase.setReviewRemark(reviewRemark);
+		purchase.setStatus(status);
+		// 获得当前登录用户
+		User reviewer = (User) session.getAttribute("user");
+		purchase.setReviewer(reviewer);
+		// 审批时间
+		purchase.setReviewTime(new Date());
+		
+		return purchaseService.updatePurchase(purchase);
 	}
 }

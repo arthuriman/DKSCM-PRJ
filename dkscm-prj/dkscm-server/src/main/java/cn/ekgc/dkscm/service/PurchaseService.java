@@ -1,6 +1,7 @@
 package cn.ekgc.dkscm.service;
 
 import cn.ekgc.dkscm.pojo.entity.Purchase;
+import cn.ekgc.dkscm.pojo.entity.User;
 import cn.ekgc.dkscm.pojo.vo.Page;
 
 /**
@@ -18,4 +19,21 @@ public interface PurchaseService {
 	 * @throws Exception
 	 */
 	Page<Purchase> getPurchasePageByStatusCode(Page<Purchase> page, String statusCode) throws Exception;
+
+	/**
+	 * <b>保存采购信息</b>
+	 * @param purchase
+	 * @param applicant
+	 * @return
+	 * @throws Exception
+	 */
+	boolean savePurchase(Purchase purchase, User applicant) throws Exception;
+
+	/**
+	 * <b>修改采购信息</b>
+	 * @param purchase
+	 * @return
+	 * @throws Exception
+	 */
+	boolean updatePurchase(Purchase purchase) throws Exception;
 }

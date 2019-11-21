@@ -46,6 +46,11 @@
 					keyboard: false
 				});
 			}
+			
+			// 关闭窗口
+			function closeModal() {
+				$("#myModal").modal("hide");
+			}
 		</script>
 	</head>
 	<body class="hold-transition skin-blue sidebar-mini">

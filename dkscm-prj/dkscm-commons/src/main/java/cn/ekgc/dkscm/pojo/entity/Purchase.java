@@ -16,7 +16,7 @@ public class Purchase implements Serializable {
 	private String goodsName;
 	private String goodsBand;
 	private String goodsType;
-	private Double applyquantity;
+	private Double applyQuantity;
 	private String goodsUnit;
 	private Double budget;
 	private String applyRemark;
@@ -74,11 +74,11 @@ public class Purchase implements Serializable {
 	public void setGoodsType(String goodsType) {
 		this.goodsType = goodsType;
 	}
-	public Double getApplyquantity() {
-		return applyquantity;
+	public Double getApplyQuantity() {
+		return applyQuantity;
 	}
-	public void setApplyquantity(Double applyquantity) {
-		this.applyquantity = applyquantity;
+	public void setApplyQuantity(Double applyQuantity) {
+		this.applyQuantity = applyQuantity;
 	}
 	public String getGoodsUnit() {
 		return goodsUnit;

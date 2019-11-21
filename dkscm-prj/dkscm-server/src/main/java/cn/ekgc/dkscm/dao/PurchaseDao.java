@@ -19,4 +19,18 @@ public interface PurchaseDao {
 	 * @throws Exception
 	 */
 	List<Purchase> findPurchaseListByQuery(Map<String, Object> paramMap) throws Exception;
+
+	/**
+	 * <b>保存申请信息</b>
+	 * @param purchase
+	 * @throws Exception
+	 */
+	void savePurchase(Purchase purchase) throws Exception;
+
+	/**
+	 * <b>修改采购信息</b>
+	 * @param purchase
+	 * @throws Exception
+	 */
+	void updatePurchase(Purchase purchase) throws Exception;
 }
