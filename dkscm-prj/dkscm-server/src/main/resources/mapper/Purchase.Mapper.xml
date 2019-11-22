@@ -57,6 +57,7 @@
 				<if test="reviewRemark != null">review_remark=#{reviewRemark},</if>
 				<if test="reviewer != null">reviewer_id=#{reviewer.userId},</if>
 				<if test="reviewTime != null">review_time=#{reviewTime},</if>
+				<if test=""></if>
 				<if test="status != null">status_code=#{status.statusCode}</if>
 			</trim>
 		where

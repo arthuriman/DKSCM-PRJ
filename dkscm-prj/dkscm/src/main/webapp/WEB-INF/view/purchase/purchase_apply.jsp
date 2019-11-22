@@ -28,13 +28,10 @@
 							success: function(data) {
 								// 对于data得到的就是true、false
 								if (data) {
-									alert("申请提交成功，请等待后续流程！");
-									// 关闭窗口，重定向到列表页面
-									parent.closeModal();
-									location.href="APPLY/index";
+									$("#result").html("申请提交成功，请进入 我的申请 功能查看后续操作");
+									$("#submitBtn").attr("disabled", "disabled");
 								} else {
-									alert("申请提交失败，请稍后再试！");
-									parent.closeModal();
+									$("#result").html("申请提交失败，请联系管理员！");
 								}
 							}
 						});
@@ -68,95 +65,143 @@
 	<body>
 		<div class="container" style="margin: 5px;">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12" style="text-align: center;">
+					<h1>
+						<i class="fa fa-shopping-cart"></i>
+						物资采购申请
+					</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12" style="margin: 30px auto;">
 					<form id="myForm" role="form">
-						<table>
+						<table style="border-collapse: separate; border-spacing: 5px; margin: 0 auto;">
 							<tr>
-								<td align="right">
+								<td style="text-align: right;">
 									<span style="color: red;">*</span>
-									<i class="fa fa-gift"></i>
+									<i class="fa fa-leaf"></i>
 									<label>物资名称：</label>
 								</td>
-								<td colspan="3">
-									<input type="text" id="goodsName" name="goodsName" class="form-control"/>
-								</td>
-							</tr>
-							<tr>
-								<td><p></p></td>
-								<td colspan="3">
-									<label class="error" for="goodsName" style="color: red;"></label>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<i class="fa fa-"></i>
-									<label>物资品牌：</label>
-								</td>
-								<td colspan="3">
-									<input type="text" id="goodsBand" name="goodsBand" class="form-control"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<i class="fa fa-"></i>
-									<label>采购品牌：</label>
-								</td>
-								<td colspan="3">
-									<input type="text" id="goodsType" name="goodsType" class="form-control"/>
-								</td>
-							</tr>
-							<tr>
-								<td align="right">
-									<i class="fa fa-"></i>
-									<label>采购数量：</label>
-								</td>
-								<td>
-									<input type="text" id="applyQuantity" name="applyQuantity" class="form-control" style="width: 80px;"/>
-								</td>
-								<td>
-									<i class="fa fa-"></i>
-									<label>计量单位：</label>
-								</td>
-								<td>
-									<input type="text" id="goodsUnit" name="goodsUnit" class="form-control" style="width: 80px;"/>
+								<td colspan="3" style="padding: 0px 5px;">
+									<input type="text" id="goodsName" name="goodsName" class="form-control" style="width: 300px;"/>
 								</td>
 							</tr>
 							<tr>
 								<td></td>
 								<td colspan="3">
+									<label for="goodsName" class="error" style="color: red;"></label>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">
+									<span style="color: red;">*</span>
+									<i class="fa fa-copyright"></i>
+									<label>品牌：</label>
+								</td>
+								<td colspan="3" style="padding: 0px 5px;">
+									<input type="text" id="goodsBand" name="goodsBand" class="form-control" style="width: 300px;"/>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="3">
+									<label for="goodsBand" class="error" style="color: red;"></label>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">
+									<span style="color: red;">*</span>
+									<i class="fa fa-tags"></i>
+									<label>型号：</label>
+								</td>
+								<td colspan="3" style="padding: 0px 5px;">
+									<input type="text" id="goodsType" name="goodsType" class="form-control" style="width: 300px;"/>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="3">
+									<label for="goodsType" class="error" style="color: red;"></label>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">
+									<span style="color: red;">*</span>
+									<i class="fa fa-cubes"></i>
+									<label>购买数量：</label>
+								</td>
+								<td style="padding: 0px 5px;">
+									<input type="text" id="applyQuantity" name="applyQuantity" class="form-control" style="width: 100px;"/>
+								</td>
+								<td style="text-align: right;">
+									<span style="color: red;">*</span>
+									<i class="fa fa-balance-scale"></i>
+									<label>计量单位：</label>
+								</td>
+								<td style="padding: 0px 5px;">
+									<input type="text" id="goodsUnit" name="goodsUnit" class="form-control" style="width: 70px;"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="text-align: right;">
 									<label for="applyQuantity" class="error" style="color: red;"></label>
 								</td>
+								<td colspan="2" style="text-align: right;">
+									<label for="goodsUnit" class="error" style="color: red;"></label>
+								</td>
 							</tr>
 							<tr>
-								<td>
-									<i class="fa fa-jpy"></i>
-									<label>采购预算：</label>
+								<td style="text-align: right;">
+									<span style="color: red;">*</span>
+									<i class="fa fa-money"></i>
+									<label>总费用：</label>
 								</td>
-								<td colspan="3">
+								<td colspan="3" style="padding: 0px 5px;">
 									<div class="input-group">
-							            <input type="text" id="budget" name="budget"  class="form-control">
-							            <span class="input-group-addon">元</span>
-							        </div>
+										<input type="text" id="budget" name="budget" class="form-control" style="width: 250px;"/>
+	            						<span class="input-group-addon">&nbsp;元</span>
+            						</div>
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<i class="fa fa-"></i>
-									<label>采购说明：</label>
-								</td>
+								<td></td>
 								<td colspan="3">
-									<input type="text" id="applyRemark" name="applyRemark" class="form-control"/>
+									<label for="budget" class="error" style="color: red;"></label>
 								</td>
 							</tr>
 							<tr>
-								<td colspan="4" align="right">
-									<button type="submit">申请采购</button>
+								<td style="text-align: right;">
+									<span style="color: red;">*</span>
+									<i class="fa fa-align-justify"></i>
+									<label>购买说明：</label>
+								</td>
+								<td colspan="3" style="padding: 0px 5px;">
+									<input type="text" id="applyRemark" name="applyRemark" class="form-control" style="width: 300px;"/>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="3">
+									<label for="applyRemark" class="error" style="color: red;"></label>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="text-align: right;">
+									<button id="submitBtn" type="submit" class="btn btn-success">
+										<i class="fa fa-plus"></i>
+										申请购买
+									</button>
 								</td>
 							</tr>
 						</table>
 					</form>
 				</div>
-			</div>		
+			</div>
+			<div class="row">
+				<div class="col-md-12" style="text-align: center;">
+					<h3 id="result"></h3>
+				</div>
+			</div>	
 		</div>
 	</body>
 </html>

@@ -163,4 +163,34 @@ public class PurchaseController extends BaseController {
 		
 		return purchaseService.updatePurchase(purchase);
 	}
+	
+	/**
+	 * <b>加载购买页面</b>
+	 * @param purchaseId
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/buy/{purchaseId}", method = RequestMethod.GET)
+	public String forwardPurchasePage(@PathVariable("purchaseId")Long purchaseId, ModelMap map) 
+			throws Exception {
+		map.put("purchaseId", purchaseId);
+		return "purchase/purchase_buy";
+	}
+	
+	/**
+	 * <b>购买物资</b>
+	 * @param purchase
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/buy", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean buyPurchase(Purchase purchase) throws Exception {
+		// 获得当前登录用户
+		User purchaser = (User) session.getAttribute("user");
+		purchase.setPurchaser(purchaser);
+		purchase.setPurchaseTime(new Date());
+		return purchaseService.updatePurchase(purchase);
+	}
 }

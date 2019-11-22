@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -100,7 +101,7 @@
 						targets: 5,
 						data: function (row, type, val, meta) {
 							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-							return "<span style='font-weight: bold;'>" + row.status.statusText + "</span>";
+							return row.reviewRemark;
 						}
 					}, {
 						targets: 6,
@@ -108,13 +109,8 @@
 							// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
 							var detailBtn = "<a href='#' class='btn btn-primary btn-xs'><i class='fa fa-crosshairs'></i>查看详情</a>"
 							// 对于撤回申请的按钮来说，必须该申请为当前登录用户所能够操作的
-							// 获得当前登录用户信息
-							var userId = ${sessionScope.user.userId};
-							var applyBackBtn = "";
-							if (userId == row.applicant.userId) {
-								applyBackBtn = "<a href='#' class='btn btn-danger btn-xs'><i class='fa fa-times'></i>撤回申请</a>";
-							}
-							return detailBtn + "&nbsp;" + applyBackBtn;
+							var purchaseBtn = "<a href='javascript:buyPurchase(" + row.purchaseId + ");' class='btn btn-success btn-xs'><i class=''></i>进行购买</a>&nbsp;";
+							return detailBtn + "&nbsp;" + purchaseBtn;
 						}
 					}],
 					// 显示语言
@@ -145,12 +141,12 @@
 				});
 			});
 			
-			// 打开申请采购窗口
-			function openPurchaseApply() {
-				var url = "purchase/apply";
+			// 审批窗口			
+			function buyPurchase(purchaseId) {
+				var url = "purchase/buy/" + purchaseId;
 				var width = "800px";
 				var height = "600px";
-				var titleHTML = "<i class='fa fa-hand-stop-o'></i>&nbsp;申请物资采购";
+				var titleHTML = "<i class='fa fa-cart-plus'></i>&nbsp;申请物资采购";
 				// 对于子页面要想获得父页面，JavaScript提供了另外一个对象parent
 				parent.showModal(url, width, height, titleHTML);
 			}
@@ -159,11 +155,11 @@
 	<body>
 		<div class="container" style="margin: 0px;">
 			<div class="row" style="padding-top: 10px;">
-				<div class="col-md-12">
-					<a href="javascript:openPurchaseApply();" class="btn btn-success">
-						<i class="fa fa-plus"></i>
-						申请采购
-					</a>
+				<div class="col-md-12" style="text-align: center;">
+					<h1>
+						<i class="fa fa-pencil-square-o"></i>
+						采购审批列表
+					</h1>
 				</div>
 			</div>
 			<div class="row" style="padding-top: 10px;">
@@ -177,7 +173,6 @@
 								<th>数量</th>
 								<th>预算</th>
 								<th>审批意见</th>
-								<th>状态</th>
 								<th>操作</th>
 							</tr>
 						</thead>
